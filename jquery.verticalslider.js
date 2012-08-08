@@ -1,11 +1,10 @@
-/*
- * Project: Simple vertical image slider (jQuery)
- * Author: Arthur Zielinski
+/** 
+ * Simple vertical image slider (jQuery)
  * Examples and documentation at: https://github.com/ar1hur/jquery.verticalslider
- * License: General Public Open Source
- * Version: 1.0
+ * @author: Arthur Zielinski 
+ * @license: General Public Open Source
+ * @version: 1.1
  */
-
 ;
 (function ( $, window, undefined ) {
 	// Create the defaults once
@@ -24,7 +23,7 @@
 	function Plugin( element, options ) {
 		this.element = element;
 
-		this.options = $.extend( {}, defaults, options) ;
+		this.options = $.extend( {}, defaults, options);
 
 		this._defaults = defaults;
 		this._name = pluginName;
@@ -34,12 +33,13 @@
 
 	Plugin.prototype = {
 		init: function () {	
-			// main items
-			this._items = $(this.element).find('li');		
+			// main / items
+			this._main = $(this.element).find('ul,ol');
+			this._items = this._main.find('li');				
 			
 			// some css preparations
-			this._items.css('position','relative');
-			this._items.parent().parent().css('overflow','hidden');
+			this._main.css('position','relative');
+			this._main.parent().css('overflow','hidden');
 		 
 			// get item height with margins + borders + paddings
 			this._itemsHeight = parseInt( $(this._items[0]).outerHeight(true) );
@@ -61,7 +61,7 @@
 			if( this._top <= this._maxTop ) {
 				this._top = this._maxTop; 
 			}			
-			this._items.css('top', this._top);
+			this._main.css('top', this._top);
 		  
 			// get navigation
 			this._next = $(this.element).find(this.options.navNext);
@@ -120,7 +120,7 @@
 	  
 		_slide: function() {	
 			var top = parseInt( this._top );
-			this._items.animate({ top:top }, this.options.speed);
+			this._main.animate({ top:top }, this.options.speed);
 		}
 	};
 
