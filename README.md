@@ -23,7 +23,8 @@ a tiny jquery plugin to slide images vertically
     navNext: '.next',   // css class of next button
     navPrev: '.prev',   // css class of previous button
     speed: 800,         // animation speed
-    hideNav: true	    // hide navigation buttons when scrolling is not possible
+    hideNav: true,	    // hide navigation buttons when scrolling is not possible
+    rows:1              // set number of items in a row
     
 #js
     $(document).ready(function() {

@@ -3,7 +3,7 @@
  * Examples and documentation at: https://github.com/ar1hur/jquery.verticalslider
  * @author: Arthur Zielinski 
  * @license: General Public Open Source
- * @version: 1.1
+ * @version: 1.2
  */
 ;
 (function ( $, window, undefined ) {
@@ -16,7 +16,8 @@
 		navNext: '.next',
 		navPrev: '.prev',
 		speed: 800,
-		hideNav: true		
+		hideNav: true,
+		rows: 1
 	};
 
 	// The actual plugin constructor
@@ -55,7 +56,9 @@
 						
 			this._top = parseInt( this.options.startAt * -this._itemsHeight );			
 			this._offset = parseInt( this._itemsHeight * this.options.showItems );
-			this._maxTop = parseInt( this._itemsHeight * this._items.length - this.options.showItems * this._itemsHeight ) * -1;			
+			
+			var length = this._items.length / this.options.rows;
+			this._maxTop = parseInt( this._itemsHeight * length - this.options.showItems * this._itemsHeight ) * -1;
 			
 			// limit top value
 			if( this._top <= this._maxTop ) {
