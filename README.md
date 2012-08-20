@@ -28,7 +28,7 @@ speed: 800,         // animation speed
 hideNav: true,	    // hide navigation buttons when scrolling is not possible
 rows:1              // set number of items in a row
 ```     
-##useage
+##usage
 ``` js
 $(document).ready(function() {
   $('.my-slider-element').verticalSlider();
