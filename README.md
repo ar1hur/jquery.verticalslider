@@ -1,9 +1,10 @@
-jquery.verticalslider
+#jquery.verticalslider
 =====================
 
 a tiny jquery plugin to slide images vertically
 
-#The markup
+##The markup
+``` html
     <div class="my-slider-element">
       <div class="images">
         <ul>
@@ -16,8 +17,9 @@ a tiny jquery plugin to slide images vertically
       <a href="#" class="sprite-icons next">vor</a>					
       <a href="#" class="sprite-icons prev">zurück</a>	      
     </div>
-    
-#options (defaults)
+```    
+##options (defaults)
+``` js
     startAt: 1,         // position of item to start
     showItems: 4,       // number of items to see in viewport/container at once
     navNext: '.next',   // css class of next button
@@ -25,8 +27,10 @@ a tiny jquery plugin to slide images vertically
     speed: 800,         // animation speed
     hideNav: true,	    // hide navigation buttons when scrolling is not possible
     rows:1              // set number of items in a row
-    
-#js
+```     
+##useage
+``` js
     $(document).ready(function() {
       $('.my-slider-element').verticalSlider();
     });
+``` 
