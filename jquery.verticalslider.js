@@ -3,7 +3,7 @@
  * Examples and documentation at: https://github.com/ar1hur/jquery.verticalslider
  * @author: Arthur Zielinski 
  * @license: General Public Open Source
- * @version: 1.2
+ * @version: 1.2.1
  */
 ;
 (function ( $, window, undefined ) {
@@ -45,41 +45,11 @@
 			// get item height with margins + borders + paddings
 			this._itemsHeight = parseInt( $(this._items[0]).outerHeight(true) );
 				
-			// avoid length bug
-			if( this.options.startAt > this._items.length ) {
-				this.options.startAt = this._items.length;
-			}
-			
-			if( this.options.startAt > 0 ) { 
-				this.options.startAt--;
-			}					
-						
-			this._top = parseInt( this.options.startAt * -this._itemsHeight );			
-			this._offset = parseInt( this._itemsHeight * this.options.showItems );
-			
-			var length = this._items.length / this.options.rows;
-			this._maxTop = parseInt( this._itemsHeight * length - this.options.showItems * this._itemsHeight ) * -1;
-			
-			// limit top value
-			if( this._top <= this._maxTop ) {
-				this._top = this._maxTop; 
-			}			
-			this._main.css('top', this._top);
-		  
 			// get navigation
 			this._next = $(this.element).find(this.options.navNext);
 			this._prev = $(this.element).find(this.options.navPrev);	
-
-			// hide navigation 
-			if( this.options.hideNav ) {
-				if( this._top >= 0 ) {
-					this._prev.hide();
-				}
-				
-				if( this._top <= this._maxTop ) {
-					this._next.hide();
-				}				
-			}
+			
+			this.initOptions();
 		  
 			// bind events for navigation buttons
 			var self = this;
@@ -91,6 +61,49 @@
 				e.preventDefault();
 				self.next();
 			});
+		},
+	  
+		initOptions: function(options) {
+			this.options = $.extend( {}, this.options, options);
+			
+			// display all, set defaults
+			this._main.css('top', 0);
+			this._prev.show();
+			this._next.show();	
+									
+			// avoid length bug
+			if( this.options.startAt > this._items.length ) {
+				this.options.startAt = this._items.length;
+			}
+			
+			if( this.options.startAt > 0 ) { 
+				this.options.startAt--;
+			}			
+						
+			var length = Math.round( this._items.length / this.options.rows );
+									
+			this._top = parseInt( this.options.startAt * -this._itemsHeight );			
+			this._offset = parseInt( this._itemsHeight * this.options.showItems );
+			
+			
+			this._maxTop = parseInt( this._itemsHeight * length - this.options.showItems * this._itemsHeight ) * -1;
+			
+			// limit top value
+			if( this._top <= this._maxTop ) {
+				this._top = this._maxTop; 
+			}			
+			this._main.css('top', this._top);
+			
+			// hide navigation 
+			if( this.options.hideNav ) {
+				if( this._top >= 0 ) {
+					this._prev.hide();
+				}
+				
+				if( this._top <= this._maxTop ) {
+					this._next.hide();
+				}				
+			}
 		},
 	  
 		next: function() {		  		  
@@ -123,7 +136,7 @@
 	  
 		_slide: function() {	
 			var top = parseInt( this._top );
-			this._main.animate({ top:top }, this.options.speed);
+			this._main.animate({top:top}, this.options.speed);
 		}
 	};
 
